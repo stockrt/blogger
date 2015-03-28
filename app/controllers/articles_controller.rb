@@ -7,6 +7,10 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @comment = Comment.new
+    @comment.article_id = @article.id
+    # Adds a ghost in-memory comment
+    #@comment = @article.comments.new
   end
 
   def new
