@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
 
   before_filter :require_login, except: [:index, :show]
+  before_filter :authorized, only: [:edit, :update, :destroy]
 
   def index
     @articles = Article.all
@@ -37,8 +38,6 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update article_params
-    @article.author_id = current_user.id
-    @article.save
     flash.notice = "Article #{@article.title} updated!"
     redirect_to article_path(@article)
   end
@@ -49,4 +48,13 @@ class ArticlesController < ApplicationController
     flash.notice = "Article #{@article.title} deleted!"
     redirect_to articles_path
   end
+
+  private
+    def authorized
+      @article = Article.find(params[:id])
+      unless @article.author_id == current_user.id
+        redirect_to article_path(@article)
+        return false
+      end
+    end
 end

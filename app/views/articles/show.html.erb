@@ -2,7 +2,9 @@
 <% if @article.author %>
 <p>Author: <%= @article.author.username %> (<%= @article.author.email %>)</p>
 <% end %>
+<% if logged_in? %>
 <p>Current user: <%= current_user.username %> (<%= current_user.email %>)</p>
+<% end %>
 <p>Visits: <%= @article.view_count %></p>
 <p>
 Tags:
@@ -15,7 +17,7 @@ Tags:
   <p><%= image_tag @article.image.url :medium %></p>
 <% end %>
 
-<% if logged_in? %>
+<% if logged_in? and @article.author_id == current_user.id %>
   <%= link_to 'edit', edit_article_path(@article) %>
   </br>
   <%= link_to 'delete', article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
