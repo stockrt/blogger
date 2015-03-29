@@ -7,7 +7,7 @@ Tags:
 </p>
 <p><%= @article.body %></p>
 <% if @article.image.exists? %>
-  <p><%= image_tag @article.image.url %></p>
+  <p><%= image_tag @article.image.url :medium %></p>
 <% end %>
 <%= link_to 'edit', edit_article_path(@article) %>
 </br>
