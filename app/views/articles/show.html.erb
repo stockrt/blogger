@@ -1,4 +1,8 @@
 <h1><%= @article.title %></h1>
+<% if @article.author %>
+<p>Author: <%= @article.author.username %> (<%= @article.author.email %>)</p>
+<% end %>
+<p>Current user: <%= current_user.username %> (<%= current_user.email %>)</p>
 <p>Visits: <%= @article.view_count %></p>
 <p>
 Tags:
