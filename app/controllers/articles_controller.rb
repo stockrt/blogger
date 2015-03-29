@@ -9,11 +9,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    if @article.view_count.nil?
-      @article.view_count = 1
-    else
-      @article.view_count += 1
-    end
+    @article.view_count += 1
     @article.save
 
     @comment = Comment.new
