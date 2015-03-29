@@ -9,10 +9,14 @@ Tags:
 <% if @article.image.exists? %>
   <p><%= image_tag @article.image.url :medium %></p>
 <% end %>
-<%= link_to 'edit', edit_article_path(@article) %>
-</br>
-<%= link_to 'delete', article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
-</br>
+
+<% if logged_in? %>
+  <%= link_to 'edit', edit_article_path(@article) %>
+  </br>
+  <%= link_to 'delete', article_path(@article), method: :delete, data: {confirm: "Really delete the article?"} %>
+  </br>
+<% end %>
+
 <h3>Comments (<%= @article.comments.size %>)</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
 <%= render partial: 'comments/form' %>
